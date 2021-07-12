@@ -1,0 +1,3 @@
+rootProject.name = "secure"
+include ':app'
+include ':secure'
