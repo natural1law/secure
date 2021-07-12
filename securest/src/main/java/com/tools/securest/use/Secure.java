@@ -1,8 +1,8 @@
-package com.tools.secure.use;
+package com.tools.securest.use;
 
 import android.content.Context;
 
-import com.tools.secure.origin.Control;
+import com.tools.securest.origin.Control;
 
 import java.security.KeyPair;
 

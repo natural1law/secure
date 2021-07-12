@@ -1,4 +1,4 @@
-package com.tools.secure.origin;
+package com.tools.securest.origin;
 
 public final class Mode {
 

@@ -96,4 +96,4 @@
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
 # 保留类不被混淆
--keep public class com.tools.secure.use.Secure.**{*;}
+-keep public class com.tools.securest.use.Secure.**{*;}

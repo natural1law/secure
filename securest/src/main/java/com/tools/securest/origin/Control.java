@@ -1,4 +1,4 @@
-package com.tools.secure.origin;
+package com.tools.securest.origin;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -31,7 +31,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import static android.util.Base64.DEFAULT;
-import static com.tools.secure.origin.Mode.MD5_HEX;
+import static com.tools.securest.origin.Mode.MD5_HEX;
 
 public final class Control {
 
