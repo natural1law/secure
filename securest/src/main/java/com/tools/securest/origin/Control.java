@@ -31,7 +31,6 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import static android.util.Base64.DEFAULT;
-import static com.tools.securest.origin.Mode.MD5_HEX;
 
 public final class Control {
 
@@ -39,6 +38,8 @@ public final class Control {
     }
 
     public static final class MD5 {
+
+        private static final long timestamp = System.currentTimeMillis();
 
         private MD5() {
         }
@@ -56,7 +57,7 @@ public final class Control {
                     sb.append("0");
                 }
             }
-            String salt = sb.toString() + System.currentTimeMillis();
+            String salt = sb.toString() + timestamp;
             cleartext = String.valueOf(md5Hex(cleartext + salt));
             char[] cs = new char[48];
             for (int i = 0; i < 48; i += 3) {
@@ -80,8 +81,8 @@ public final class Control {
                 char[] str = new char[j * 2];
                 int k = 0;
                 for (byte byte0 : bs) {
-                    str[k++] = MD5_HEX[byte0 >>> 4 & 0xf];
-                    str[k++] = MD5_HEX[byte0 & 0xf];
+                    str[k++] = Mode.MD5_HEX[byte0 >>> 4 & 0xf];
+                    str[k++] = Mode.MD5_HEX[byte0 & 0xf];
                 }
                 return new String(str);
             } catch (Exception e) {
@@ -103,7 +104,7 @@ public final class Control {
                     cs1[i / 3 * 2 + 1] = ciphertext.charAt(i + 2);
                     cs2[i / 3] = ciphertext.charAt(i + 1);
                 }
-                String salt = new String(cs2) + System.currentTimeMillis();
+                String salt = new String(cs2) + timestamp;
                 return String.valueOf(md5Hex(cleartext + salt)).equals(new String(cs1));
             } catch (Exception e) {
                 Log.e("校验MD5密码异常", String.valueOf(e.getMessage()));
@@ -650,6 +651,50 @@ public final class Control {
                 return byte2hex(alga.digest());
             } catch (Exception e) {
                 Log.e("SHA1加密异常", e.getMessage(), e);
+                return "";
+            }
+        }
+
+        public static String encrypt224(String cleartext) {
+            try {
+                MessageDigest alga = MessageDigest.getInstance(Mode.SHA224);
+                alga.update(cleartext.getBytes());
+                return byte2hex(alga.digest());
+            } catch (Exception e) {
+                System.err.println("SHA1加密异常: " + e.getMessage());
+                return "";
+            }
+        }
+
+        public static String encrypt256(String cleartext) {
+            try {
+                MessageDigest alga = MessageDigest.getInstance(Mode.SHA256);
+                alga.update(cleartext.getBytes());
+                return byte2hex(alga.digest());
+            } catch (Exception e) {
+                System.err.println("SHA1加密异常: " + e.getMessage());
+                return "";
+            }
+        }
+
+        public static String encrypt384(String cleartext) {
+            try {
+                MessageDigest alga = MessageDigest.getInstance(Mode.SHA384);
+                alga.update(cleartext.getBytes());
+                return byte2hex(alga.digest());
+            } catch (Exception e) {
+                System.err.println("SHA1加密异常: " + e.getMessage());
+                return "";
+            }
+        }
+
+        public static String encrypt512(String cleartext) {
+            try {
+                MessageDigest alga = MessageDigest.getInstance(Mode.SHA512);
+                alga.update(cleartext.getBytes());
+                return byte2hex(alga.digest());
+            } catch (Exception e) {
+                System.err.println("SHA1加密异常: " + e.getMessage());
                 return "";
             }
         }
